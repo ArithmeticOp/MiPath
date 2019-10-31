@@ -23,6 +23,18 @@ tk.Label(window, text="MI Path", bg="black", fg="white", width=45, height=0,
 output = tk.Text(window, width=65, height=10, wrap=tk.WORD, background="white")
 output.place(x=20, y=50)
 
+def saveCmd():
+    global output, filelist
+    filesave = filedialog.asksaveasfile(filetypes=[('Text Files', ['.txt'])]).name
+    f = open(filesave, 'w')
+    filestring = " \n".join(str(x) for x in filelist)
+    f.write(filestring)
+    f.close()
+
+# save button
+saveBtn = tk.Button(window, text="เซฟไฟล์", width=12, command=saveCmd)
+saveBtn.place(x=200, y=200)
+
 def loadCmd():
     global output
     fileinfo = filedialog.askopenfile(filetypes=[('Text Files', ['.txt'])])
@@ -129,13 +141,14 @@ def on_press(key):
     global recordStatus, specialKeys, filelist
     filelen = len(filelist) 
     try:
-        if recordStatus and not specialKeys:
-            output.insert(tk.END, f"{key.char} \n")
-            filelist.append(f"{key.char}")
-        elif filelen > 0:
-            specialKeys = False
-            output.insert(tk.END, f"{key.char} \n")
-            filelist[filelen - 1] = f"{filelist[filelen - 1]}{key.char}"
+        if recordStatus:
+            if not specialKeys:
+                output.insert(tk.END, f"{key.char} \n")
+                filelist.append(f"{key.char}")
+            elif filelen > 0:
+                specialKeys = False
+                output.insert(tk.END, f"{key.char} \n")
+                filelist[filelen - 1] = f"{filelist[filelen - 1]}{key.char}"
     except AttributeError:
         if recordStatus:
             if str(key) == "Key.space" and filelen > 0 and not specialKeys:
