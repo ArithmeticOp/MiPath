@@ -51,6 +51,8 @@ def doAct(action):
         pg.press('enter')
     elif action.find('Key.space') != -1:
         pg.press('space')
+    elif action.find('Key.backspace') != -1:
+        pg.press('backspace')
     else: 
         pg.press(action)
 
@@ -128,6 +130,9 @@ def on_press(key):
                 output.insert(END, f"{key} \n")
                 filelist.append(f"{key}")
             elif str(key) == "Key.enter" and filelen > 0 and not specialKeys:
+                output.insert(END, f"{key} \n")
+                filelist.append(f"{key}")
+            elif str(key) == "Key.backspace" and filelen > 0 and not specialKeys:
                 output.insert(END, f"{key} \n")
                 filelist.append(f"{key}")
             elif str(key).find("Key.shift") or str(key).find("Key.cmd") or str(key).find("Key.alt") or str(key).find("Key.ctrl") and not specialKeys and filelen > 0:
