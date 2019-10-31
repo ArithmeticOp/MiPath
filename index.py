@@ -27,7 +27,7 @@ def saveCmd():
     global output, filelist
     filesave = filedialog.asksaveasfile(filetypes=[('Text Files', ['.txt'])]).name
     f = open(filesave, 'w')
-    filestring = " \n".join(str(x) for x in filelist)
+    filestring = "\n".join(str(x) for x in filelist)
     f.write(filestring)
     f.close()
 
@@ -36,10 +36,10 @@ saveBtn = tk.Button(window, text="เซฟไฟล์", width=12, command=save
 saveBtn.place(x=200, y=200)
 
 def loadCmd():
-    global output
+    global output, filelist
     fileinfo = filedialog.askopenfile(filetypes=[('Text Files', ['.txt'])])
     readtext = fileinfo.read()
-    print(readtext)
+    filelist = readtext.split("\n")
     output.insert(tk.END, f"{readtext}")
 
 # load button
