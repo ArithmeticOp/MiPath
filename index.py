@@ -1,7 +1,8 @@
 # import modules
 import pyautogui as pg
 import time
-from tkinter import *
+import tkinter as tk
+from tkinter import filedialog
 from pynput import mouse, keyboard
 
 # initial value
@@ -10,17 +11,28 @@ recordStatus = False
 specialKeys = False
 
 # main:
-window = Tk()
+window = tk.Tk()
 window.title("MI Path") 
 window.geometry("500x500")
 window.configure(background="black")
 
 # program name
-Label(window, text="MI Path", bg="black", fg="white", width=45, height=0,
-      font="Helvetica 19 bold", justify="center").grid(row=0, column=0, sticky=W)
+tk.Label(window, text="MI Path", bg="black", fg="white", width=45, height=0,
+      font="Helvetica 19 bold", justify="center").grid(row=0, column=0, sticky=tk.W)
 
-output = Text(window, width=65, height=10, wrap=WORD, background="white")
+output = tk.Text(window, width=65, height=10, wrap=tk.WORD, background="white")
 output.place(x=20, y=50)
+
+def loadCmd():
+    global output
+    fileinfo = filedialog.askopenfile(filetypes=[('Text Files', ['.txt'])])
+    readtext = fileinfo.read()
+    print(readtext)
+    output.insert(tk.END, f"{readtext}")
+
+# load button
+loadBtn = tk.Button(window, text="โหลดไฟล์", width=12, command=loadCmd)
+loadBtn.place(x=350, y=200)
 
 # selection action
 def doAct(action):
@@ -78,22 +90,22 @@ def clearCmd():
     global recordStatus, filelist
     if recordStatus==False:
         filelist = []
-        output.delete('1.0', END)
+        output.delete('1.0', tk.END)
 
 # record button
-recordBtn = Button(window, text="บันทึกปุ่ม", width=12, command=recordFn)
+recordBtn = tk.Button(window, text="บันทึกปุ่ม", width=12, command=recordFn)
 recordBtn.place(x=40, y=280)
 
 # stop button
-stopRecordBtn = Button(window, text="หยุดบันทึกปุ่ม", width=12, command=stopRecordCmd)
+stopRecordBtn = tk.Button(window, text="หยุดบันทึกปุ่ม", width=12, command=stopRecordCmd)
 stopRecordBtn.place(x=185, y=280)
 
 # clear button
-clearBtn = Button(window, text="ล้างบันทึก", width=12, command=clearCmd)
+clearBtn = tk.Button(window, text="ล้างบันทึก", width=12, command=clearCmd)
 clearBtn.place(x=330, y=280)
 
 # play button
-playBtn = Button(window, text="เล่น", width=12, command=playCmd)
+playBtn = tk.Button(window, text="เล่น", width=12, command=playCmd)
 playBtn.place(x=185, y=350)
 
 # exit function
@@ -102,7 +114,7 @@ def closeFn():
     exit()
 
 # exit button
-closeBtn = Button(window, text="ออกการใช้งาน", width=12, command=closeFn)
+closeBtn = tk.Button(window, text="ออกการใช้งาน", width=12, command=closeFn)
 closeBtn.place(x=185,y=420)
 
 # pynput listener
@@ -110,7 +122,7 @@ def on_click(x, y, button, pressed):
     global recordStatus, filelist
     if pressed:
         if recordStatus:
-            output.insert(END, f"{x}, {y} {button}\n")
+            output.insert(tk.END, f"{x}, {y} {button}\n")
             filelist.append(f"{x}, {y} {button}")
 
 def on_press(key):
@@ -118,29 +130,29 @@ def on_press(key):
     filelen = len(filelist) 
     try:
         if recordStatus and not specialKeys:
-            output.insert(END, f"{key.char} \n")
+            output.insert(tk.END, f"{key.char} \n")
             filelist.append(f"{key.char}")
         elif filelen > 0:
             specialKeys = False
-            output.insert(END, f"{key.char} \n")
+            output.insert(tk.END, f"{key.char} \n")
             filelist[filelen - 1] = f"{filelist[filelen - 1]}{key.char}"
     except AttributeError:
         if recordStatus:
             if str(key) == "Key.space" and filelen > 0 and not specialKeys:
-                output.insert(END, f"{key} \n")
+                output.insert(tk.END, f"{key} \n")
                 filelist.append(f"{key}")
             elif str(key) == "Key.enter" and filelen > 0 and not specialKeys:
-                output.insert(END, f"{key} \n")
+                output.insert(tk.END, f"{key} \n")
                 filelist.append(f"{key}")
             elif str(key) == "Key.backspace" and filelen > 0 and not specialKeys:
-                output.insert(END, f"{key} \n")
+                output.insert(tk.END, f"{key} \n")
                 filelist.append(f"{key}")
             elif str(key).find("Key.shift") or str(key).find("Key.cmd") or str(key).find("Key.alt") or str(key).find("Key.ctrl") and not specialKeys and filelen > 0:
                 specialKeys = True
-                output.insert(END, f"{key} ")
+                output.insert(tk.END, f"{key} ")
                 filelist.append(f"{key} ")
             elif filelen > 0:
-                output.insert(END, f"{key} ")
+                output.insert(tk.END, f"{key} ")
                 filelist[filelen - 1] = f"{key} "
 
 mouse_listener = mouse.Listener(
