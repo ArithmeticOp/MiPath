@@ -1,0 +1,1 @@
+([('index', '/Users/admin/Downloads/Mine/dist/index', 'EXECUTABLE')],)
