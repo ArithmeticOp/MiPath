@@ -1,12 +1,12 @@
-154.25, 302.4921875 Button.left 
-286.3671875, 297.96875 Button.left 
-755.1484375, 796.0 Button.left 
-a 
-s 
-d 
-573.140625, 837.01953125 Button.left 
-573.140625, 837.01953125 Button.left 
-Key.cmd c 
-603.88671875, 839.765625 Button.left 
-Key.cmd v 
+154.25, 302.4921875 Button.left
+286.3671875, 297.96875 Button.left
+755.1484375, 796.0 Button.left
+a
+s
+d
+573.140625, 837.01953125 Button.left
+573.140625, 837.01953125 Button.left
+Key.cmd c
+603.88671875, 839.765625 Button.left
+Key.cmd v
 219.1328125, 347.19140625 Button.left
