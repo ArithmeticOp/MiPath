@@ -1,0 +1,3 @@
+948, 356 Button.left
+Key.alt_l Key.f4 
+409, 503 Button.left

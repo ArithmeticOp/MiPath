@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['index.py'],
-             pathex=['/Users/admin/Downloads/Mine'],
+             pathex=['C:\\Users\\Noi\\Downloads\\MiPath-master'],
              binaries=[],
              datas=[],
              hiddenimports=[],
@@ -31,7 +31,3 @@ exe = EXE(pyz,
           upx_exclude=[],
           runtime_tmpdir=None,
           console=False )
-app = BUNDLE(exe,
-             name='index.app',
-             icon=None,
-             bundle_identifier=None)

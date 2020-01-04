@@ -50,18 +50,44 @@ loadBtn.place(x=350, y=200)
 def doAct(action):
     keys = action.split(",")
     skeys = action.split(" ")
-    time.sleep(0.50)
+    print(keys)
+    print(skeys)
+    time.sleep(1)
+    if action.find('Key.f1') != -1:
+        skeys[1] = 'f1'
+    elif action.find('Key.f2') != -1:
+        skeys[1] = 'f2'
+    elif action.find('Key.f3') != -1:
+        skeys[1] = 'f3'
+    elif action.find('Key.f4') != -1:
+        skeys[1] = 'f4'
+    elif action.find('Key.f5') != -1:
+        skeys[1] = 'f5'
+    elif action.find('Key.f6') != -1:
+        skeys[1] = 'f6'
+    elif action.find('Key.f7') != -1:
+        skeys[1] = 'f7'
+    elif action.find('Key.f8') != -1:
+        skeys[1] = 'f8'
+    elif action.find('Key.f9') != -1:
+        skeys[1] = 'f9'
+    elif action.find('Key.f10') != -1:
+        skeys[1] = 'f10'
+    elif action.find('Key.f11') != -1:
+        skeys[1] = 'f11'
+    elif action.find('Key.f12') != -1:
+        skeys[1] = 'f12'
     if action.find('Button.left') != -1:
         x = float(keys[0])
         y = float(keys[1].split(" ")[1])
         pg.mouseDown(x, y)
-        time.sleep(0.15)
+        time.sleep(1)
         pg.mouseUp(x, y)
     elif action.find('Button.right') != -1:
         x = float(keys[0])
         y = float(keys[1].split(" ")[1])
         pg.mouseDown(x, y, button='right')
-        time.sleep(0.15)
+        time.sleep(1)
         pg.mouseUp(x, y)
     elif action.find('Key.cmd') != -1:
         pg.hotkey('command', skeys[1])
@@ -75,8 +101,6 @@ def doAct(action):
         pg.press('enter')
     elif action.find('Key.space') != -1:
         pg.press('space')
-    elif action.find('Key.backspace') != -1:
-        pg.press('backspace')
     else: 
         pg.press(action)
 
@@ -139,6 +163,7 @@ def on_click(x, y, button, pressed):
 
 def on_press(key):
     global recordStatus, specialKeys, filelist
+    print(filelist)
     filelen = len(filelist) 
     try:
         if recordStatus:
@@ -157,10 +182,7 @@ def on_press(key):
             elif str(key) == "Key.enter" and filelen > 0 and not specialKeys:
                 output.insert(tk.END, f"{key} \n")
                 filelist.append(f"{key}")
-            elif str(key) == "Key.backspace" and filelen > 0 and not specialKeys:
-                output.insert(tk.END, f"{key} \n")
-                filelist.append(f"{key}")
-            elif str(key).find("Key.shift") or str(key).find("Key.cmd") or str(key).find("Key.alt") or str(key).find("Key.ctrl") and not specialKeys and filelen > 0:
+            elif str(key).find("Key.shift") or str(key).find("Key.cmd") or str(key).find("Key.alt") or str(key).find("Key.alt_l") or str(key).find("Key.ctrl") or str(key).find("Key.ctrl_l") and not specialKeys and filelen > 0:
                 specialKeys = True
                 output.insert(tk.END, f"{key} ")
                 filelist.append(f"{key} ")
